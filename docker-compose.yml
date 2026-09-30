@@ -7,25 +7,22 @@ services:
       - "5672:5672"   # Porta padrão do AMQP para comunicação
       - "15672:15672" # Porta do painel de administração web
 
-  # cliente1:
-  #   build: ./client
-  #   depends_on:
-  #     - rabbitmq
-  #   volumes:
-  #     # Mapeia a pasta local de imagens originais para dentro do contêiner[cite: 2]
-  #     - ./client/pasta_cliente_1:/app/pasta_cliente_1
+  cliente1:
+    build: ./client
+    depends_on:
+      - rabbitmq
+    volumes:
+ 
+      - ./client/pasta_cliente_1:/app/pasta_cliente_1
 
-  # # Exemplo de um nó processador (Conversor)
-  # conversor1:
-  #   build: ./converter
-  #   depends_on:
-  #     - rabbitmq
+  conversor1:
+    build: ./converter
+    depends_on:
+      - rabbitmq
 
-  # # Exemplo de um nó consumidor (Armazenador)
-  # armazenador1:
-  #   build: ./storage
-  #   depends_on:
-  #     - rabbitmq
-  #   volumes:
-  #     # Mapeia a pasta local onde a imagem convertida será salva[cite: 2]
-  #     - ./storage/pasta_servidor_1:/app/servidor_1
+  armazenador1:
+    build: ./storage
+    depends_on:
+      - rabbitmq
+    volumes:
+      - ./storage/pasta_servidor_1:/app/servidor_1
