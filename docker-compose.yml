@@ -8,21 +8,47 @@ services:
       - "15672:15672" # Porta do painel de administração web
 
   cliente1:
-    build: ./client
+    build: ./cliente
     depends_on:
       - rabbitmq
+    environment:
+      - NOME_PASTA_CLIENTE=pasta_cliente1
     volumes:
- 
-      - ./client/pasta_cliente_1:/app/pasta_cliente_1
+      - ./cliente/pasta_cliente1:/app/pasta_cliente1
+
+  cliente2:
+    build: ./cliente
+    depends_on:
+      - rabbitmq
+    environment:
+      - NOME_PASTA_CLIENTE=pasta_cliente2
+    volumes:
+      - ./cliente/pasta_cliente2:/app/pasta_cliente2
 
   conversor1:
-    build: ./converter
+    build: ./conversor
+    depends_on:
+      - rabbitmq
+
+  conversor2:
+    build: ./conversor
     depends_on:
       - rabbitmq
 
   armazenador1:
-    build: ./storage
+    build: ./armazenamento
     depends_on:
       - rabbitmq
+    environment:
+      - NOME_PASTA_ARMAZENAMENTO=pasta_servidor1 # 
     volumes:
-      - ./storage/pasta_servidor_1:/app/servidor_1
+      - ./armazenamento/pasta_servidor1:/app/pasta_servidor1
+
+  armazenador2:
+    build: ./armazenamento
+    depends_on:
+      - rabbitmq
+    environment:
+      - NOME_PASTA_ARMAZENAMENTO=pasta_servidor2
+    volumes:
+      - ./armazenamento/pasta_servidor2:/app/pasta_servidor2

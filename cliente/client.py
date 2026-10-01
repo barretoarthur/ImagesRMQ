@@ -4,7 +4,7 @@ import time
 
 RABBITMQ_HOST = 'rabbitmq'
 NOME_FILA = 'fila_nao_processadas' 
-PASTA_IMAGENS = 'pasta_cliente_1'
+PASTA_IMAGENS = os.getenv('NOME_PASTA_CLIENTE', 'pasta_cliente1')
 
 def conectar_rabbitmq():
     time.sleep(10) 
